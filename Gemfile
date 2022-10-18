@@ -4,7 +4,7 @@ gem 'rails', '4.2.11.1'
 
 
 ## DATABASES
-gem "mysql2", "~> 0.3.14"
+gem 'mysql2', '0.5.3'
 
 ## RAILS DEPENDENCIES
 gem 'sass-rails', '~> 5.0'

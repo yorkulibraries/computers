@@ -82,7 +82,6 @@ ActiveRecord::Schema.define(version: 20161021125703) do
     t.string   "ip_subnets"
     t.boolean  "active",     default: true,  null: false
     t.boolean  "deleted",    default: false, null: false
-    t.integer  "floors"
     t.string   "address"
   end
 
