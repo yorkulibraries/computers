@@ -60,12 +60,8 @@ class AreasController < ApplicationController
 
     ### ADDITIONAL ACTIONS ###
     def attach_computers_form
-      #
-      #@computer_list = @area.computers.select(:ip).collect { |c| c.ip }.sort_by { |x| -x[/\d+/].to_i }.join("\n")
       @computer_list = []
-      @area.computers.each do |c|
-        c.update hostname: c.ip if c.hostname.blank?
-
+      @area.computers.order("hostname ASC").each do |c|
         @computer_list << c.hostname
       end
 
@@ -78,11 +74,11 @@ class AreasController < ApplicationController
 
     def attach_computers
       list = params[:computer_list]
-      @original_list = @area.computers.collect { |c| "#{c.hostname} - #{c.ip}" }
+      @original_list = @area.computers.order("hostname ASC").collect { |c| "#{c.hostname}" }
 
 
       @area.attach_computers(list)
-      @computers = @area.computers
+      @computers = @area.computers.order("hostname ASC")
 
       respond_to do |format|
         format.js { render action: 'computer_list' }
@@ -91,7 +87,7 @@ class AreasController < ApplicationController
     end
 
     def computer_list
-      @computers = @area.computers.order("ip ASC")
+      @computers = @area.computers.order("hostname ASC")
     end
 
     ### PRIVATE METHODS ###

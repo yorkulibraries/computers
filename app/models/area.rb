@@ -27,25 +27,17 @@ class Area < ActiveRecord::Base
 
     sanitized_list = ip_list.lines.collect { |ip| ip.rstrip }
 
-    host_computers = Computer.where("hostname in (?)", sanitized_list)
-    ip_computers = Computer.where("ip in (?)", sanitized_list)
-
-
-    Computer.transaction do
-      host_computers.each do |c|
-        c.area = self
-        c.location = self.location
-        c.floor = self.floor
-        c.save(validate: false)
+    sanitized_list.each do |h|
+      logger.info "Attaching hostname: #{h} to area #{self[:id]}"
+      c = Computer.find_by_hostname(h)
+      if c == nil
+        c = Computer.where(ip: h).first_or_create(ip: h, hostname: h)
       end
-      ip_computers.each do |c|
-        c.area = self
-        c.location = self.location
-        c.floor = self.floor
-        c.save(validate: false)
-      end
+      c.area = self
+      c.location = self.location
+      c.floor = self.floor
+      c.save(validate: false)
     end
-
   end
 
 end
