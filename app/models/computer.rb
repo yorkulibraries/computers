@@ -17,8 +17,8 @@ class Computer < ActiveRecord::Base
   has_many :activity_entries, class_name: "ComputerActivityLog"
 
   ## VALIDATIONS
-  validates :ip, :presence => true, :uniqueness => true, unless: :hostname
-  validate :valid_ip, unless: :hostname
+  #validates :ip, :presence => true, :uniqueness => true, unless: :hostname
+  #validate :valid_ip, unless: :hostname
 
   ## SCOPES
 
