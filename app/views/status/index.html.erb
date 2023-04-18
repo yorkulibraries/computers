@@ -14,7 +14,6 @@
           <th width="10%">Total</th>
           <th width="10%">Free</th>
           <th width="10%">In Use</th>
-          <th width="10%">Not Setup</th>
         </tr>
         <% location.areas.order(:floor_id).each do |area| %>
           <tr>
@@ -23,7 +22,6 @@
             <td><%= area.computers.count %></td>
             <td><%= area.computers.not_in_use.count %></td>
             <td><%= area.computers.in_use.count %></td>
-            <td><%= area.computers.never_ping.count %></td>
           </tr>
         <% end %>
       </table>
