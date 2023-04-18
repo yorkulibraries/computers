@@ -86,7 +86,8 @@ class Computer < ActiveRecord::Base
 
   ##### Records activity log entry with a specified action
   def record_activity_log(action = ComputerActivityLog::ACTION_PING)
-    e = ComputerActivityLog.new(ip: self[:ip], activity_date: DateTime.now)
+    ip = self[:hostname] ? self[:hostname] : self[:ip] 
+    e = ComputerActivityLog.new(ip: ip, activity_date: DateTime.now)
     e.action = action
     e.computer = self
     e.username = self[:current_username]
