@@ -1,3 +1,18 @@
+// 2022 stats
+select c.hostname, count(cal.ip) as count, l.name as location, f.name as floor,  a.name as area
+  from computer_activity_logs cal
+  left outer join computers c on c.id = cal.computer_id
+  left outer join areas a on a.id = c.area_id
+  left outer join locations l on l.id = c.location_id
+  left outer join floors f on f.id = c.floor_id
+  where  c.area_id is not null
+    and (action = "logoff" or action = "logoff_inactive")
+    and year(activity_date) = 2022
+  group by cal.ip order by l.name ASC, c.hostname ASC
+  INTO OUTFILE '/var/lib/mysql-files/2022_stats.csv'
+  FIELDS TERMINATED BY ','
+  ENCLOSED BY '"'
+  LINES TERMINATED BY '\n';
 
 
 // YEARLY STATS
