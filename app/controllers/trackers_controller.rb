@@ -11,7 +11,7 @@ class TrackersController < ApplicationController
       @computer.update_hostname_if_nil(params[:hostname])
     end
 
-
+    @computer.ip = request.remote_ip
     @computer.logon(params[:username])
     @computer.save
     @computer.record_activity_log(ComputerActivityLog::ACTION_LOGON)
@@ -34,6 +34,7 @@ class TrackersController < ApplicationController
       @computer.update_hostname_if_nil(params[:hostname])
     end
 
+    @computer.ip = request.remote_ip
     @computer.logoff
     @computer.save
 
@@ -55,6 +56,7 @@ class TrackersController < ApplicationController
       @computer.update_hostname_if_nil(params[:hostname])
     end
 
+    @computer.ip = request.remote_ip
     @computer.ping
     @computer.save
 
