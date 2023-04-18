@@ -32,7 +32,7 @@ class Computer < ActiveRecord::Base
   scope :never_used, -> { where("last_user_activity IS NULL") }
   scope :unavailable, -> { pinging.in_use }
   scope :available, -> { where("id NOT IN(?)", unavailable.select(:id))}
-  scope :attached_to_location, -> { where("location_id IS NOT NULL") }
+  scope :attached_to_location, -> { where("location_id IS NOT NULL AND area_id IS NOT NULL") }
 
   ## CALLBACKS
   after_create :add_register_activity_entry
