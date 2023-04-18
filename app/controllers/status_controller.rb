@@ -15,23 +15,23 @@ class StatusController < ApplicationController
 
     case params[:status]
     when "in_use"
-      @computers = Computer.in_use
+      @computers = Computer.attached_to_location.in_use
     when "not_in_use"
-      @computers = Computer.not_in_use
+      @computers = Computer.attached_to_location.not_in_use
     when "pinging"
-      @computers = Computer.pinging
+      @computers = Computer.attached_to_location.pinging
     when "not_pinging"
-      @computers = Computer.not_pinging
+      @computers = Computer.attached_to_location.not_pinging
     when "staying_active"
-      @computers = Computer.staying_active
+      @computers = Computer.attached_to_location.staying_active
     when "not_staying_active"
-      @computers = Computer.not_staying_active
+      @computers = Computer.attached_to_location.not_staying_active
     when "never_ping"
-      @computers = Computer.never_ping
+      @computers = Computer.attached_to_location.never_ping
     when "never_used"
-      @computers = Computer.never_used
+      @computers = Computer.attached_to_location.never_used
     else
-      @computers = Computer.in_use
+      @computers = Computer.attached_to_location.in_use
     end
 
   end
