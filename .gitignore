@@ -24,3 +24,5 @@
 /public/uploads/**
 
 /public/assets/**
+*.sql
+*.sql.gz
