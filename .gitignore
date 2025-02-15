@@ -12,7 +12,6 @@
 /db/*.sqlite3-journal
 
 # Config files
-/config/*.yml
 /config/deploy/*.rb
 
 # Ignore all logfiles and tempfiles.
